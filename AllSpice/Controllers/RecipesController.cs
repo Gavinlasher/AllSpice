@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AllSpice.Models;
 using AllSpice.Services;
@@ -41,6 +40,7 @@ namespace AllSpice.Controllers
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        recipeData.CreatorId = userInfo.Id;
         Recipe recipe = _rs.Create(recipeData);
         recipe.Creator = userInfo;
         return Created($"api/recipes/{recipe.Id}", recipe);
@@ -71,6 +71,7 @@ namespace AllSpice.Controllers
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        updates.Id = id;
         Recipe updated = _rs.Edit(updates, userInfo);
         return Ok(updated);
       }

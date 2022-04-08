@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 using AllSpice.Models;
 using Dapper;
 
@@ -23,7 +22,7 @@ namespace AllSpice.Repositories
       SELECT
       r.*,
       a.*
-      FROM Recipes r
+      FROM recipes r
       JOIN accounts a WHERE a.id = r.creatorId;
       ";
       // NOTE     first (g) second (a) third (return type)
@@ -38,10 +37,10 @@ namespace AllSpice.Repositories
     internal Recipe Create(Recipe recipeData)
     {
       string sql = @"
-    INSERT INTO Recipes
-    (title,subtitle,category,creatorId)
+    INSERT INTO recipes
+    (title,subtitle,category,creatorId,picture)
     VALUE
-    (@Title,@Subtitle,@Category,@creatorId)
+    (@Title,@Subtitle,@Category,@CreatorId,@Picture);
     SELECT LAST_INSERT_ID();
     ";
       int id = _db.ExecuteScalar<int>(sql, recipeData);
@@ -55,7 +54,7 @@ namespace AllSpice.Repositories
       SELECT 
         r.*,
         a.* 
-      FROM Recipes r
+      FROM recipes r
       JOIN accounts a ON r.creatorId = a.id
       WHERE r.id = @id;
       ";
@@ -70,7 +69,7 @@ namespace AllSpice.Repositories
     internal string Remove(int id)
     {
       string sql = @"
-        DELETE FROM Recipes WHERE id = @id LIMIT 1;
+        DELETE FROM recipes WHERE id = @id LIMIT 1;
       ";
       int rowsAffected = _db.Execute(sql, new { id });
       if (rowsAffected > 0)
@@ -84,11 +83,12 @@ namespace AllSpice.Repositories
     internal void Edit(Recipe og)
     {
       string sql = @"
-      UPDATE Recipes
+      UPDATE recipes
       SET
        title = @Title,
        subtitle = @Subtitle,
-       category = @Category
+       category = @Category,
+       picture = @Picture
       WHERE id = @Id;";
       _db.Execute(sql, og);
     }
