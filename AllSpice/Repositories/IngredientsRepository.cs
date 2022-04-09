@@ -44,7 +44,7 @@ namespace AllSpice.Services
     INSERT INTO ingredients
     (name,quantity,recipeId)
     VALUE
-    (@Name,@Quantity,@recipeId);
+    (@Name,@Quantity,@RecipeId);
     SELECT LAST_INSERT_ID();
     ";
       int id = _db.ExecuteScalar<int>(sql, ingredientData);
