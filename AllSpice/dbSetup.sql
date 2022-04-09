@@ -33,3 +33,10 @@ CREATE TABLE IF NOT EXISTS steps(
   position INT,
  body TEXT
 ) default charset utf8 COMMENT '';
+CREATE TABLE IF NOT EXISTS favorites(
+  id INT AUTO_INCREMENT primary key,
+  recipeId INT,
+  accountId VARCHAR(255),
+  FOREIGN   KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE,
+  FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE
+) default charset utf8 COMMENT '';
