@@ -10,15 +10,14 @@ namespace AllSpice.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class StepsControlller : ControllerBase
+  public class StepsController : ControllerBase
   {
     private readonly StepsService _ss;
 
-    public StepsControlller(StepsService ss)
+    public StepsController(StepsService ss)
     {
       _ss = ss;
     }
-
     [HttpPost]
     [Authorize]
     public async Task<ActionResult<Step>> Create([FromBody] Step stepData)

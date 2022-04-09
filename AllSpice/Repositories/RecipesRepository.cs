@@ -80,6 +80,18 @@ namespace AllSpice.Repositories
 
     }
 
+    internal List<Step> GetSteps(int id)
+    {
+      string sql = @"
+      SELECT
+     s.*
+     
+      FROM steps s
+       WHERE s.recipeId = @id;
+      ";
+      return _db.Query<Step>(sql, new { id }).ToList();
+    }
+
     internal List<Ingredient> GetIngredients(int id)
     {
       string sql = @"

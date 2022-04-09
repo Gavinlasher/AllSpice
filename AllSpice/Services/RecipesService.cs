@@ -63,5 +63,10 @@ namespace AllSpice.Services
     {
       return rs_repo.GetIngredients(id);
     }
+
+    internal List<Step> GetSteps(int id)
+    {
+      return rs_repo.GetSteps(id);
+    }
   }
 }
