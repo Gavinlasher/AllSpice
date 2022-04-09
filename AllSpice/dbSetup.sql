@@ -17,3 +17,19 @@ CREATE TABLE IF NOT EXISTS recipes(
   category varchar(255) COMMENT 'Category',
   Picture TEXT
 ) default charset utf8 COMMENT '';
+CREATE TABLE IF NOT EXISTS ingredients(
+  id int AUTO_INCREMENT primary key,
+  recipeId INT,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+  name varchar(255),
+  quantity varchar(255)
+) default charset utf8 COMMENT '';
+CREATE TABLE IF NOT EXISTS steps(
+  id int AUTO_INCREMENT primary key,
+  recipeId INT,
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+  position INT,
+ body TEXT
+) default charset utf8 COMMENT '';

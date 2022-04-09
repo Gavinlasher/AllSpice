@@ -80,6 +80,19 @@ namespace AllSpice.Repositories
 
     }
 
+    internal List<Ingredient> GetIngredients(int id)
+    {
+      string sql = @"
+      SELECT
+     i.*
+     
+      FROM ingredients i
+       WHERE i.recipeId = @id;
+      ";
+      return _db.Query<Ingredient>(sql, new { id }).ToList();
+
+    }
+
     internal void Edit(Recipe og)
     {
       string sql = @"

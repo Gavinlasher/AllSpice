@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AllSpice.Models;
 
 
@@ -59,6 +57,11 @@ namespace AllSpice.Services
         throw new Exception("Not Yours!!");
       }
       return rs_repo.Remove(id);
+    }
+
+    internal List<Ingredient> GetIngredients(int id)
+    {
+      return rs_repo.GetIngredients(id);
     }
   }
 }
