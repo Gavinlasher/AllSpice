@@ -59,6 +59,11 @@ namespace AllSpice.Services
       return rs_repo.Remove(id);
     }
 
+    internal List<RecipeFavoriteModel> GetFavoritesByAccId(string id)
+    {
+      return rs_repo.GetFavoritesByAccId(id);
+    }
+
     internal List<Ingredient> GetIngredients(int id)
     {
       return rs_repo.GetIngredients(id);

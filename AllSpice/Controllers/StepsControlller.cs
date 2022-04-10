@@ -10,31 +10,46 @@ namespace AllSpice.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class FavoritesController : ControllerBase
+  public class StepsControlller : ControllerBase
   {
-    private readonly FavoritesService _fs;
+    private readonly StepsService _ss;
 
-    public FavoritesController(FavoritesService fs)
+    public StepsControlller(StepsService ss)
     {
-      _fs = fs;
+      _ss = ss;
     }
+
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<Favorite>> Create([FromBody] Favorite favoriteData)
+    public async Task<ActionResult<Step>> Create([FromBody] Step stepData)
     {
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        favoriteData.AccountId = userInfo.Id;
-        Favorite favorite = _fs.Create(favoriteData);
-        return Ok(favorite);
+        Step step = _ss.Create(stepData, userInfo);
+        return Ok(step);
       }
       catch (Exception e)
       {
         return BadRequest(e.Message);
       }
     }
-
+    [HttpPut("{id}")]
+    [Authorize]
+    public async Task<ActionResult<Step>> Edit([FromBody] Step updates, int id)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        updates.Id = id;
+        Step updated = _ss.Edit(updates, userInfo);
+        return Ok(updated);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
     [HttpDelete("{id}")]
     [Authorize]
     public async Task<ActionResult<string>> Remove(int id)
@@ -42,9 +57,8 @@ namespace AllSpice.Controllers
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        _fs.Remove(id, userInfo);
+        _ss.Remove(id, userInfo);
         return Ok("deleted");
-
       }
       catch (Exception e)
       {

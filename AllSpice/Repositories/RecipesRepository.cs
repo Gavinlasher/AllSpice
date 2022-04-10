@@ -80,6 +80,28 @@ namespace AllSpice.Repositories
 
     }
 
+    internal List<RecipeFavoriteModel> GetFavoritesByAccId(string id)
+    {
+      string sql = @"
+          SELECT
+            a.*,
+            f.*,
+            r.*
+          FROM favorites f
+          JOIN recipes r ON f.recipeId = r.id
+          JOIN accounts a ON r.creatorId = a.id
+          WHERE f.accountId = @id;
+      ";
+      List<RecipeFavoriteModel> recipes = _db.Query<Account, Favorite, RecipeFavoriteModel, RecipeFavoriteModel>(sql, (a, f, r) =>
+      {
+        r.Creator = a;
+
+        r.FavoriteId = f.Id;
+        return r;
+      }, new { id }).ToList<RecipeFavoriteModel>();
+      return recipes;
+    }
+
     internal List<Step> GetSteps(int id)
     {
       string sql = @"
