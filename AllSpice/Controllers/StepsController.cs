@@ -25,6 +25,7 @@ namespace AllSpice.Controllers
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        
         Step step = _ss.Create(stepData, userInfo);
         return Ok(step);
       }

@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS steps(
   recipeId INT,
   createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
   updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
-  position INT,
+  position INT ,
  body TEXT
 ) default charset utf8 COMMENT '';
 CREATE TABLE IF NOT EXISTS favorites(
