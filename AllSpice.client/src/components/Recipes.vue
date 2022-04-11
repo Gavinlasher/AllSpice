@@ -57,6 +57,7 @@ export default {
     return {
       async getSteps(id) {
         try {
+          await stepsService.getIngredients(id)
           await stepsService.getSteps(id)
         } catch (error) {
           logger.error(error)

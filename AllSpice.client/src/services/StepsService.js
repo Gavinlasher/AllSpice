@@ -8,6 +8,11 @@ class StepsService {
     logger.log("steps new", res.data)
     AppState.steps = res.data
   }
+  async getIngredients(id) {
+    const res = await api.get("api/recipes/" + id + "/ingredients")
+    logger.log(res.data)
+    AppState.ingredients = res.data
+  }
   async addStep(body) {
     const res = await api.post("api/steps", body)
     logger.log(res.data)
