@@ -150,6 +150,7 @@ export default {
           Pop.toast(error.message)
         }
       },
+      account: computed(() => AppState.account),
       currentRecipe: computed(() => AppState.recipes.find(r => r.id == props.id)),
       recipe: computed(() => AppState.recipes.find(r => r.id == props.Id)),
       steps: computed(() => AppState.steps),
