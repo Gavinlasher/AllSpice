@@ -1,9 +1,13 @@
 <template>
-  <div class="rounded shadow mt-2 bg-light hoverable selectable">
+  <div class="rounded shadow mt-2 bg-light hoverable">
     <div class="text-start d-flex justify-content-between">
       <h6 class="p-1">{{ recipe.category }}</h6>
 
-      <i class="mdi mdi-heart text-dark p-1"></i>
+      <i
+        class="mdi mdi-heart text-dark p-1 selectable"
+        title="favorite"
+        @click="favorite(recipe.id)"
+      ></i>
     </div>
     <img class="img-fluid" :src="recipe.picture" />
     <div class="cw-bg">
@@ -69,6 +73,14 @@ export default {
           if (await Pop.confirm()) {
             await recipesService.remove(id)
           }
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, "error message")
+        }
+      },
+      async favorite(id) {
+        try {
+          await recipesService.favorite(id)
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, "error message")
