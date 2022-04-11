@@ -80,13 +80,14 @@ export default {
       },
       async favorite(id) {
         try {
-          await recipesService.favorite(id)
+          await recipesService.favorite({ recipeId: id })
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, "error message")
         }
       },
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      favorites: computed(() => AppState.favorites)
     }
   }
 }
