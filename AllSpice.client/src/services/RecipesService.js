@@ -18,6 +18,11 @@ class RecipesService {
     logger.log(res.data)
     AppState.recipes = AppState.recipes.filter(r => r.id != id)
   }
+  async favorite(id) {
+    const res = await api.post("api/favorites", id)
+    logger.log(res.data)
+    AppState.favorites = [...AppState.favorites, res.data]
+  }
 }
 
 export const recipesService = new RecipesService()
